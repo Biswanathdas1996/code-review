@@ -1,0 +1,43 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. FILEWRITER.
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT EMPLOYEE-FILE ASSIGN TO 'EMPLOYEE.DAT'
+               ORGANIZATION IS SEQUENTIAL.
+
+       DATA DIVISION.
+       FILE SECTION.
+       FD EMPLOYEE-FILE.
+       01 EMPLOYEE-RECORD.
+           05 EMP-ID         PIC X(5).
+           05 EMP-NAME       PIC X(20).
+           05 EMP-SALARY     PIC 9(7)V99.
+
+       WORKING-STORAGE SECTION.
+       01 WS-END-OF-FILE     PIC X VALUE 'N'.
+          88 END-OF-FILE     VALUE 'Y'.
+
+       PROCEDURE DIVISION.
+       OPEN-EMP-FILE.
+           OPEN OUTPUT EMPLOYEE-FILE.
+
+           MOVE "E1001" TO EMP-ID.
+           MOVE "John Doe" TO EMP-NAME.
+           MOVE 55000.75 TO EMP-SALARY.
+           WRITE EMPLOYEE-RECORD.
+
+           MOVE "E1002" TO EMP-ID.
+           MOVE "Alice Smith" TO EMP-NAME.
+           MOVE 62000.50 TO EMP-SALARY.
+           WRITE EMPLOYEE-RECORD.
+
+           MOVE "E1003" TO EMP-ID.
+           MOVE "Bob Johnson" TO EMP-NAME.
+           MOVE 58000.25 TO EMP-SALARY.
+           WRITE EMPLOYEE-RECORD.
+
+           CLOSE EMPLOYEE-FILE.
+           DISPLAY "EMPLOYEE FILE CREATED SUCCESSFULLY".
+
+       STOP RUN.
